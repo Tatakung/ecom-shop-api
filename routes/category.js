@@ -1,16 +1,7 @@
-const express = require('express')
-const router = express.Router()
-const { create, list, remove } = require('../controllers/category')
-const { authCheck, adminCheck } = require('../middlewares/authCheck')
+const express = require("express");
+const router = express.Router();
+const { list } = require("../controllers/category");
 
 // @ENDPOINT https://store-api-dusky.vercel.app/api/category
-router.post('/category', authCheck, adminCheck, create)
-router.get('/category', list)
-router.delete('/category/:id', authCheck, adminCheck, remove)
-
-
-
-
-
-
-module.exports = router
+router.get("/category", list);
+module.exports = router;
