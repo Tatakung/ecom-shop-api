@@ -9,20 +9,23 @@ generator client {
 }
 
 datasource db {
-  // provider  = "mysql"
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  // provider = "mysql"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String?
-  name      String?
-  picture   String?
-  role      String   @default("user")
-  enabled   Boolean  @default(true)
-  adddress  String?
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String?
+  name     String?
+  picture  String?
+  role     String  @default("user")
+  enabled  Boolean @default(true)
+  address  String?
+
+  phone     String?
   orders    Order[]
   carts     Cart[]
   createdAt DateTime @default(now())
@@ -36,6 +39,7 @@ model Product {
   price       Float
   sold        Int              @default(0)
   quantity    Int
+  isuse       Boolean          @default(true)
   orderItems  ProductOnOrder[]
   cartItems   ProductOnCart[]
   images      Image[]
@@ -46,17 +50,40 @@ model Product {
 }
 
 model Order {
-  id              Int              @id @default(autoincrement())
-  products        ProductOnOrder[]
-  cartTotal       Float            @default(0)
-  orderStatus     String           @default("Not Process")
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  orderedById     Int?
-  orderedBy       User?            @relation(fields: [orderedById], references: [id])
-  amount          Float            @default(0) // กำหนดค่า default
-  currentcy       String           @default("USD") // กำหนดค่า default
-  stripePaymentId String           @default("") // กำหนดค่า default
+  id               Int              @id @default(autoincrement())
+  products         ProductOnOrder[]
+  order_o_m_status Status[]
+  order_o_m_slip   Slip[]
+  cartTotal        Float            @default(0)
+  orderStatus      String           @default("Not Process")
+  code             String?
+  codee            String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  orderedById Int?
+  orderedBy   User?    @relation(fields: [orderedById], references: [id])
+  amount      Float    @default(0) // กำหนดค่า default
+}
+
+model Status {
+  id        Int      @id @default(autoincrement())
+  status    String   @default("Not Process")
+  Order     Order?   @relation(fields: [orderId], references: [id])
+  orderId   Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Slip {
+  id        Int      @id @default(autoincrement())
+  status    Int // 0 = ยังไม่ตรวจสอบ, 1 = ตรวจสอบแล้ว
+  date      DateTime // วันเดือนปี และเวลาแบบรวม
+  hour      Int // ชั่วโมง (กรณีต้องการเก็บแยก)
+  minute    Int // นาที (กรณีต้องการเก็บแยก)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Order     Order?   @relation(fields: [orderId], references: [id])
+  orderId   Int?
 }
 
 model ProductOnOrder {
@@ -96,6 +123,7 @@ model ProductOnCart {
   count     Int
   price     Float
 }
+
 model Image {
   id         Int      @id @default(autoincrement())
   asset_id   String
