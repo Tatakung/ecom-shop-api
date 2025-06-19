@@ -7,7 +7,6 @@ router.get("/category", list);
 router.post("/category", create);
 router.post("/createImages", createImages);
 router.post("/removeimage", removeimage);
-
 router.delete("/category/:id", remove);
 router.put("/category/:id", edit);
 module.exports = router;

@@ -39,7 +39,6 @@ exports.list = async (req, res) => {
         images: true,
       },
     });
-    const list_new = products.slice(0, 5);
     res.json(products);
   } catch (error) {
     // console.log("dfldflk");

@@ -37,8 +37,16 @@ exports.register = async (req, res) => {
         name: name,
       },
     });
+    const payload = {
+      id: data.id,
+      email: data.email,
+      role: data.role, // ถ้าใน model ไม่มี role สามารถลบออกได้
+    };
+    const token = jwt.sign(payload, process.env.SECRET, { expiresIn: "1d" });
     res.json({
       message: "สมัครสมาชิกสำเร็จ",
+      payload,
+      token,
     });
   } catch (error) {
     console.log(error);
@@ -227,6 +235,7 @@ exports.show = async (req, res) => {
 
     s.sort((a, b) => b.total - a.total);
     s.slice(0, 5);
+
     res.json({
       s: s,
       // count_success : count_success
