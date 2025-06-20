@@ -122,8 +122,6 @@ exports.listquery = async (req, res) => {
 exports.filter = async (req, res) => {
   try {
     const { type, price } = req.body;
-    console.log("price คือ", price);
-    console.log("type คือ", type);
     const products = await prisma.product.findMany({
       where: {
         ...(type &&
@@ -268,11 +266,9 @@ exports.editdetail = async (req, res) => {
         },
       });
       // ส่งผลต่อ count ในสตอก->สินค้าในตะกร้าจะต้องถูกปรับลดลง (คำนวนณผลรวมใหม่)
-      console.log(carted.count, product.quantity, "ทดสอบ");
+      
       if (carted.count > product.quantity) {
-        console.log(
-          "sdlapdfkpweaofkpoawekfpowefjpowksafposekfposkfpsdofkposdfkdoko"
-        );
+      
         // ส่วนitem
         const dataitem = await prisma.productOnCart.update({
           where: {
@@ -325,7 +321,6 @@ exports.editdetail = async (req, res) => {
             products: true,
           },
         });
-        console.log(dcart.products);
         const total = dcart.products.reduce(
           (sum, item) => sum + item.price * item.count,
           0

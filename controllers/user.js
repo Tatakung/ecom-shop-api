@@ -102,13 +102,13 @@ exports.listOrder = async (req, res) => {
 exports.listOrderquery = async (req, res) => {
   try {
     const { type } = req.query;
-    console.log(type);
+    
     const order = await prisma.order.findMany({
       where: {
         orderStatus: type === "ทั้งหมด" ? undefined : type,
       },
     });
-    console.log(order);
+    
     res.json(order);
   } catch (error) {}
 };
@@ -123,7 +123,7 @@ exports.updateStatus = async (req, res) => {
         products: true,
       },
     });
-    // console.log(order.orderStatus);
+    
 
     let messageReturn = "";
 

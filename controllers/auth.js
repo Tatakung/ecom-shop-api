@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 exports.register = async (req, res) => {
   try {
     const { email, password, name } = req.body;
-    console.log(email, password);
+    
 
     if (!email) {
       res.status(400).json({
@@ -40,7 +40,7 @@ exports.register = async (req, res) => {
     const payload = {
       id: data.id,
       email: data.email,
-      role: data.role, // ถ้าใน model ไม่มี role สามารถลบออกได้
+      role: data.role, 
     };
     const token = jwt.sign(payload, process.env.SECRET, { expiresIn: "1d" });
     res.json({
@@ -54,7 +54,7 @@ exports.register = async (req, res) => {
   }
 };
 exports.login = async (req, res) => {
-  console.log("sfks");
+  
   try {
     const { email, password } = req.body;
     const check_user = await prisma.user.findFirst({
@@ -118,7 +118,7 @@ exports.currentUser = async (req, res) => {
 exports.show = async (req, res) => {
   try {
     const { month, year } = req.query;
-    console.log(month, year);
+    
     let filterMonth = parseInt(month);
     let filterYear = parseInt(year);
 

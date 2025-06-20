@@ -122,7 +122,7 @@ exports.removeimage = async (req, res) => {
   try {
     //code
     const { public_id, productId } = req.body;
-    console.log(public_id, productId);
+    
     cloudinary.uploader.destroy(public_id, (result) => {
       // res.send("Remove Image Success!!!");
     });

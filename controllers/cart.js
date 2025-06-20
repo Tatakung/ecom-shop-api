@@ -215,7 +215,7 @@ exports.removeCountedd = async (req, res) => {
 };
 exports.removeItem = async (req, res) => {
   try {
-    console.log("ds;ldlosakfkafopsdkfopsdkfpoksdfopfsopsfdk");
+   
     const { item_id, cart_id } = req.body;
 
     const cart = await prisma.cart.findFirst({
@@ -280,7 +280,7 @@ exports.removeItem = async (req, res) => {
 
 exports.onSubmit = async (req, res) => {
   try {
-    console.log("ทดสอบ");
+    
     const { cart_id, address, phone } = req.body;
     const { id } = req.user;
 
@@ -304,9 +304,9 @@ exports.onSubmit = async (req, res) => {
       }
       // console.log(product.quantity);
     }
-    console.log("แสดงผลส่วนนี้");
+    
     if (checkpass) {
-      console.log("ืำไีๆๆๆๆๆๆๆๆๆๆๆๆๆๆๆๆ");
+      
       return res.status(400).json({
         message: "บางรายการมีจำนวนเกินสต๊อก",
         products: overstockItems,
@@ -352,11 +352,10 @@ exports.onSubmit = async (req, res) => {
         cartId: Number(cart_id),
       },
     });
-    console.log(items);
+   
 
     for (const elements of items) {
       // console.log(elements.productId);
-      console.log("รอบที่ 1 ");
       const product = await prisma.product.update({
         where: {
           id: Number(elements.productId),
@@ -386,7 +385,7 @@ exports.checkPayments = async (req, res) => {
 
     const { id } = req.params;
 
-    console.log(date, hor, minute, id);
+    
     const order = await prisma.order.findFirst({
       where: {
         id: Number(id),
@@ -404,7 +403,7 @@ exports.checkPayments = async (req, res) => {
           status: 0,
         },
       });
-      console.log(slip);
+      
     }
     const updat = await prisma.order.update({
       where: {
