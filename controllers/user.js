@@ -81,7 +81,6 @@ exports.historydetail = async (req, res) => {
             name: true,
             address: true,
             phone: true,
-            // code: true,
             role: true,
           },
         },

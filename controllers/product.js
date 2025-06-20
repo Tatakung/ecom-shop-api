@@ -336,36 +336,6 @@ exports.editdetail = async (req, res) => {
         });
       }
     }
-
-    // console.log(check_Cart);
-    // เช็คว่าจำนวนในสต๊อกกับ ในตะกร้า มันสมกันไหม
-    // if (check_Cart) {
-    //   for (const carted of check_Cart) {
-    //     if (carted.count > product.quantity) {
-    //       const update_cart = await prisma.cart.update({
-    //         where: {
-    //           id: Number(carted.cartId),
-    //         },
-    //         data: {
-    //           cartTotal: {
-    //             decrement: product.quantity * product.price,
-    //           },
-    //         },
-    //       });
-    //       console.log(update_cart);
-    //       await prisma.productOnCart.update({
-    //         where: {
-    //           id: Number(carted.id),
-    //         },
-    //         data: {
-    //           price: product.price,
-    //           count: product.count,
-    //         },
-    //       });
-    //     }
-    //   }
-    // }
-
     res.json({
       message: "แก้ไขข้อมูลสำเร็จ",
     });
